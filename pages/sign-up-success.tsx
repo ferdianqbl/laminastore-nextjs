@@ -96,8 +96,8 @@ export default function SignUpSuccess() {
                 y2="12.3578"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#FF66A9" />
-                <stop offset="1" stop-color="#F53689" />
+                <stop stopColor="#FF66A9" />
+                <stop offset="1" stopColor="#F53689" />
               </linearGradient>
               <linearGradient
                 id="paint1_linear"
@@ -107,8 +107,8 @@ export default function SignUpSuccess() {
                 y2="280.629"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#83A6FF" />
-                <stop offset="1" stop-color="#5A78FF" />
+                <stop stopColor="#83A6FF" />
+                <stop offset="1" stopColor="#5A78FF" />
               </linearGradient>
               <linearGradient
                 id="paint2_linear"
@@ -118,8 +118,8 @@ export default function SignUpSuccess() {
                 y2="170.246"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#83A6FF" />
-                <stop offset="1" stop-color="#5A78FF" />
+                <stop stopColor="#83A6FF" />
+                <stop offset="1" stopColor="#5A78FF" />
               </linearGradient>
               <linearGradient
                 id="paint3_linear"
@@ -129,8 +129,8 @@ export default function SignUpSuccess() {
                 y2="48.41"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#FF66A9" />
-                <stop offset="1" stop-color="#F53689" />
+                <stop stopColor="#FF66A9" />
+                <stop offset="1" stopColor="#F53689" />
               </linearGradient>
               <linearGradient
                 id="paint4_linear"
@@ -140,8 +140,8 @@ export default function SignUpSuccess() {
                 y2="172.796"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#83A6FF" />
-                <stop offset="1" stop-color="#5A78FF" />
+                <stop stopColor="#83A6FF" />
+                <stop offset="1" stopColor="#5A78FF" />
               </linearGradient>
               <linearGradient
                 id="paint5_linear"
@@ -151,8 +151,8 @@ export default function SignUpSuccess() {
                 y2="181.715"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#4F6AFF" />
-                <stop offset="1" stop-color="#657EFF" stop-opacity="0" />
+                <stop stopColor="#4F6AFF" />
+                <stop offset="1" stopColor="#657EFF" stopOpacity="0" />
               </linearGradient>
               <linearGradient
                 id="paint6_linear"
@@ -162,8 +162,8 @@ export default function SignUpSuccess() {
                 y2="164.142"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop offset="0.0113208" stop-color="#C2D1FF" />
-                <stop offset="1" stop-color="white" />
+                <stop offset="0.0113208" stopColor="#C2D1FF" />
+                <stop offset="1" stopColor="white" />
               </linearGradient>
               <linearGradient
                 id="paint7_linear"
@@ -173,8 +173,8 @@ export default function SignUpSuccess() {
                 y2="91.3891"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#FF66A9" />
-                <stop offset="1" stop-color="#F53689" />
+                <stop stopColor="#FF66A9" />
+                <stop offset="1" stopColor="#F53689" />
               </linearGradient>
               <clipPath id="clip0">
                 <rect width="315.789" height="300" fill="white" />

@@ -9,6 +9,7 @@ import "../styles/sign-in.css";
 import "../styles/sign-up-photo.css";
 import "../styles/sign-up-success.css";
 import "../styles/sign-up.css";
+import "../styles/404-not-found.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
