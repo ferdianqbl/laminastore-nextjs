@@ -3,6 +3,8 @@ import Head from "next/head";
 import "../styles/homepage.css";
 import "../styles/utilities.css";
 import "../styles/detail.css";
+import "../styles/checkout.css";
+import "../styles/complete-checkout.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
