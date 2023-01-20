@@ -14,6 +14,7 @@ import "../styles/sidebar.css";
 import "../styles/overview.css";
 import "../styles/transactions.css";
 import "../styles/transactions-detail.css";
+import "../styles/edit-profile.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
