@@ -1,17 +1,25 @@
 /* Complete Checkout */
-.sign-up-success .img-fluid{
+.sign-up-success {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign-up-success .img-fluid {
     max-width: 66%;
     height: auto;
 }
 
-.sign-up-success .btn-top-up{
+.sign-up-success .btn-top-up {
     padding: 0.75rem 1rem;
     background-color: #4D17E2;
 }
 
-@media (min-width:768px){
-.sign-up-success .button-group{
-    width: 170px;
+@media (min-width:768px) {
+    .sign-up-success .button-group {
+        width: 170px;
+    }
 }
-}
+
 /*  */
