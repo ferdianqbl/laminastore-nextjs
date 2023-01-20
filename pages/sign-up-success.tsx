@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function SignUpSuccess() {
   return (
     <section className="sign-up-success mx-auto p-5">

@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Custom404() {
   return (
     <section className="not-found mx-auto p-5">

@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function SignIn() {
   return (
     <section className="sign-in mx-auto">

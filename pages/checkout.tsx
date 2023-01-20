@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function checkout() {
   return (
     <section className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
