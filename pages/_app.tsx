@@ -15,6 +15,7 @@ import "../styles/overview.css";
 import "../styles/transactions.css";
 import "../styles/transactions-detail.css";
 import "../styles/edit-profile.css";
+import "../styles/navbar-log-in.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

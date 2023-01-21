@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Auth from "./Auth";
 import Menu from "./Menu";
 import NavbarToggler from "./NavbarToggler";
 
@@ -23,15 +24,7 @@ export default function Navbar() {
               <Menu title="Reward" />
               <Menu title="Discover" />
               <Menu title="Global Rank" />
-              <li className="nav-item my-auto">
-                <a
-                  className="btn btn-sign-in d-flex justify-content-center ms-lg-2 rounded-pill"
-                  href="./src/sign-in.html"
-                  role="button"
-                >
-                  Sign In
-                </a>
-              </li>
+              <Auth isLogin />
             </ul>
           </div>
         </div>
