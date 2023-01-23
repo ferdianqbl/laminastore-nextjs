@@ -121,6 +121,7 @@ export default function Footer() {
                           <Link
                             className="text-lg color-palette-1 text-decoration-none"
                             href={item.href}
+                            target="_blank"
                           >
                             {item.title}
                           </Link>
