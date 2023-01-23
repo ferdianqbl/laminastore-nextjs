@@ -32,7 +32,7 @@ export default function TransactionStep() {
         </h2>
         <div className="row gap-lg-0 gap-4" data-aos="fade-up">
           {items.map((item) => (
-            <div className="col-lg-4">
+            <div className="col-lg-4" key={item.icon + item.title}>
               <StepItem icon={item.icon} title={item.title} desc={item.desc} />
             </div>
           ))}
