@@ -1,4 +1,58 @@
 import Image from "next/image";
+import Link from "next/link";
+
+const companyItems: { title: string; href: string }[] = [
+  {
+    title: "About Us",
+    href: "/",
+  },
+  {
+    title: "Press Release",
+    href: "/",
+  },
+  {
+    title: "Terms of Use",
+    href: "/",
+  },
+  {
+    title: "Privacy & Policy",
+    href: "/",
+  },
+];
+
+const supportItems: { title: string; href: string }[] = [
+  {
+    title: "Refund Policy",
+    href: "/",
+  },
+  {
+    title: "Unlock Rewards",
+    href: "/",
+  },
+  {
+    title: "Live Chatting",
+    href: "/",
+  },
+];
+
+const connectItems: { title: string; href: string }[] = [
+  {
+    title: "hi@store.gg",
+    href: "mailto: team@store.gg",
+  },
+  {
+    title: "team@store.gg",
+    href: "mailto: team@store.gg",
+  },
+  {
+    title: "Pasific 12, Jakarta Selatan",
+    href: "http://maps.google.com/?q=Pasific 12, Jakarta Selatan",
+  },
+  {
+    title: "021 - 1122 - 9090",
+    href: "tel: 02111229090",
+  },
+];
 
 export default function Footer() {
   return (
@@ -25,38 +79,16 @@ export default function Footer() {
                     Company
                   </p>
                   <ul className="list-unstyled">
-                    <li className="mb-6">
-                      <a
-                        href=""
-                        className="text-lg color-palette-1 text-decoration-none"
-                      >
-                        About Us
-                      </a>
-                    </li>
-                    <li className="mb-6">
-                      <a
-                        href=""
-                        className="text-lg color-palette-1 text-decoration-none"
-                      >
-                        Press Release
-                      </a>
-                    </li>
-                    <li className="mb-6">
-                      <a
-                        href=""
-                        className="text-lg color-palette-1 text-decoration-none"
-                      >
-                        Terms of Use
-                      </a>
-                    </li>
-                    <li className="mb-6">
-                      <a
-                        href=""
-                        className="text-lg color-palette-1 text-decoration-none"
-                      >
-                        Privacy & Policy
-                      </a>
-                    </li>
+                    {companyItems.map((item) => (
+                      <li className="mb-6" key={item.href + item.title}>
+                        <Link
+                          className="text-lg color-palette-1 text-decoration-none"
+                          href={item.href}
+                        >
+                          {item.title}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 <div className="col-md-4 col-6 mb-lg-0 mb-25">
@@ -64,30 +96,18 @@ export default function Footer() {
                     Support
                   </p>
                   <ul className="list-unstyled">
-                    <li className="mb-6">
-                      <a
-                        href=""
-                        className="text-lg color-palette-1 text-decoration-none"
-                      >
-                        Refund Policy
-                      </a>
-                    </li>
-                    <li className="mb-6">
-                      <a
-                        href=""
-                        className="text-lg color-palette-1 text-decoration-none"
-                      >
-                        Unlock Rewards
-                      </a>
-                    </li>
-                    <li className="mb-6">
-                      <a
-                        href=""
-                        className="text-lg color-palette-1 text-decoration-none"
-                      >
-                        Live Chatting
-                      </a>
-                    </li>
+                    <ul className="list-unstyled">
+                      {supportItems.map((item) => (
+                        <li className="mb-6" key={item.href + item.title}>
+                          <Link
+                            className="text-lg color-palette-1 text-decoration-none"
+                            href={item.href}
+                          >
+                            {item.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </ul>
                 </div>
                 <div className="col-md-4 col-12 mt-lg-0 mt-md-0 mt-25">
@@ -95,38 +115,18 @@ export default function Footer() {
                     Connect
                   </p>
                   <ul className="list-unstyled">
-                    <li className="mb-6">
-                      <a
-                        href="mailto: hi@store.gg"
-                        className="text-lg color-palette-1 text-decoration-none"
-                      >
-                        hi@store.gg
-                      </a>
-                    </li>
-                    <li className="mb-6">
-                      <a
-                        href="mailto: team@store.gg"
-                        className="text-lg color-palette-1 text-decoration-none"
-                      >
-                        team@store.gg
-                      </a>
-                    </li>
-                    <li className="mb-6">
-                      <a
-                        href="http://maps.google.com/?q=Pasific 12, Jakarta Selatan"
-                        className="text-lg color-palette-1 text-decoration-none"
-                      >
-                        Pasific 12, Jakarta Selatan
-                      </a>
-                    </li>
-                    <li className="mb-6">
-                      <a
-                        href="tel: 02111229090"
-                        className="text-lg color-palette-1 text-decoration-none"
-                      >
-                        021 - 1122 - 9090
-                      </a>
-                    </li>
+                    <ul className="list-unstyled">
+                      {connectItems.map((item) => (
+                        <li className="mb-6" key={item.href + item.title}>
+                          <Link
+                            className="text-lg color-palette-1 text-decoration-none"
+                            href={item.href}
+                          >
+                            {item.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </ul>
                 </div>
               </div>
