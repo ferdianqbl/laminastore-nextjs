@@ -341,7 +341,7 @@ export default function Custom404() {
         <div className="button-group d-flex flex-column mx-auto">
           <a
             className="btn btn-homepage fw-medium text-lg text-white rounded-pill"
-            href="#"
+            href="/"
             role="button"
           >
             Homepage
