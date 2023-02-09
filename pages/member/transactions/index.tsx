@@ -1,11 +1,11 @@
 import Sidebar from "../../../src/components/organism/Sidebar";
-import TransactionsContent from "../../../src/components/organism/TransactionsContent";
+import TransactionContent from "../../../src/components/organism/TransactionContent";
 
 export default function Transactions() {
   return (
     <section className="transactions overflow-auto">
       <Sidebar activeMenu="transactions" />
-      <TransactionsContent />
+      <TransactionContent />
     </section>
   );
 }

@@ -1,7 +1,7 @@
 import ButtonTab from "./ButtonTab";
 import TableRow from "./TableRow";
 
-export default function TransactionsContent() {
+export default function TransactionContent() {
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
