@@ -1,6 +1,9 @@
+import Sidebar from "../../src/components/organism/Sidebar";
+
 export default function EditProfile() {
   return (
     <section className="edit-profile overflow-auto">
+      <Sidebar activeMenu="settings" />
       <main className="main-wrapper">
         <div className="ps-lg-0">
           <h2 className="text-4xl fw-bold color-palette-1 mb-30">Settings</h2>
