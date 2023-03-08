@@ -1,11 +1,32 @@
 import Image from "next/image";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useCallback, useEffect, useState } from "react";
+import { getFeaturedGameDetail } from "../../services/player";
 import Footer from "../../src/components/organism/Footer";
 import Navbar from "../../src/components/organism/Navbar";
 import TopUpForm from "../../src/components/organism/TopUpForm";
 import TopUpItem from "../../src/components/organism/TopUpItem";
 
 export default function Detail() {
+  const ROOT_IMG = process.env.NEXT_PUBLIC_ROOT_IMG;
+  const { query, isReady } = useRouter();
+  const [dataItem, setDataItem] = useState({
+    name: "",
+    category: {
+      name: "",
+    },
+    thumbnail: "",
+  });
+
+  const getDetailVoucherData = useCallback(async () => {
+    const result = await getFeaturedGameDetail(query.voucherId as string);
+    setDataItem(result);
+  }, []);
+
+  useEffect(() => {
+    isReady ? getDetailVoucherData() : console.log("loading");
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -24,7 +45,7 @@ export default function Detail() {
               <div className="row align-items-center">
                 <div className="col-md-12 col-4">
                   <Image
-                    src="/img/Thumbnail-3.png"
+                    src={`${ROOT_IMG}/voucher/${dataItem.thumbnail}`}
                     width="280"
                     height="380"
                     className="img-fluid"
@@ -32,11 +53,11 @@ export default function Detail() {
                   />
                 </div>
 
-                <TopUpItem category="desktop" />
+                <TopUpItem data={dataItem} category="desktop" />
               </div>
             </div>
             <div className="col-xl-9 col-lg-8 col-md-7 ps-md-25">
-              <TopUpItem category="mobile" />
+              <TopUpItem data={dataItem} category="mobile" />
               <hr />
               <TopUpForm />
             </div>
