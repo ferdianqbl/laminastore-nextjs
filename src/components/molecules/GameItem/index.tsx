@@ -4,12 +4,7 @@ import Link from "next/link";
 interface GameItemProps {
   title: string;
   category: string;
-  image:
-    | "Thumbnail-1"
-    | "Thumbnail-2"
-    | "Thumbnail-3"
-    | "Thumbnail-4"
-    | "Thumbnail-5";
+  image: string;
 }
 
 export default function GameItem({ title, category, image }: GameItemProps) {
@@ -18,7 +13,7 @@ export default function GameItem({ title, category, image }: GameItemProps) {
       <Link href="/detail">
         <div className="blur-sharp">
           <Image
-            src={`/img/${image}.png`}
+            src={image}
             width="205"
             height="270"
             alt={category}

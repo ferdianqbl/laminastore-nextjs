@@ -1,6 +1,21 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import GameItem from "../../molecules/GameItem";
 
 export default function FeaturedGames() {
+  const [gameList, setGameList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://laminastore-admin.vercel.app/api/v1/players/landing-page")
+      .then((res) => {
+        setGameList(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <section className="featured-game pt-50 pb-50">
       <div className="container-fluid">
@@ -12,23 +27,14 @@ export default function FeaturedGames() {
           className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
           data-aos="fade-up"
         >
-          <GameItem title="Super Mechs" category="Mobile" image="Thumbnail-1" />
-          <GameItem
-            title="Call of Duty: Modern"
-            category="Mobile"
-            image="Thumbnail-2"
-          />
-          <GameItem
-            title="Mobile Legends"
-            category="Mobile"
-            image="Thumbnail-3"
-          />
-          <GameItem
-            title="Clash of Clans"
-            category="Mobile"
-            image="Thumbnail-4"
-          />
-          <GameItem title="Valorant" category="Desktop" image="Thumbnail-5" />
+          {gameList.map((item, index) => (
+            <GameItem
+              key={index}
+              title={item.name}
+              category={item.category.name}
+              image={`https://laminastore-admin.vercel.app/uploads/voucher/${item.thumbnail}`}
+            />
+          ))}
         </div>
       </div>
     </section>
