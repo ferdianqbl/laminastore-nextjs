@@ -55,9 +55,9 @@ export default function TopUpForm() {
         </p>
         <fieldset id="paymentMethod">
           <div className="row justify-content-between">
-            <PaymentItem />
-            <PaymentItem />
-            <PaymentItem />
+            <PaymentItem bankID="1" bankName="mandiri" type="transfer" />
+            <PaymentItem bankID="2" bankName="bca" type="visa" />
+            <PaymentItem bankID="3" bankName="bri" type="transfer" />
             <div className="col-lg-4 col-sm-6"></div>
           </div>
         </fieldset>
