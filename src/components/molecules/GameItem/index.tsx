@@ -5,12 +5,13 @@ interface GameItemProps {
   title: string;
   category: string;
   image: string;
+  id: string;
 }
 
-export default function GameItem({ title, category, image }: GameItemProps) {
+export default function GameItem({ title, category, image, id }: GameItemProps) {
   return (
     <div className="featured-game-card position-relative">
-      <Link href="/detail">
+      <Link href={`/detail/${id}`}>
         <div className="blur-sharp">
           <Image
             src={image}
