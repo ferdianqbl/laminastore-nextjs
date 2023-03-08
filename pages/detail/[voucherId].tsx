@@ -20,7 +20,7 @@ export default function Detail() {
 
   const getDetailVoucherData = useCallback(async () => {
     const result = await getFeaturedGameDetail(query.voucherId as string);
-    setDataItem(result);
+    setDataItem(result.detail);
   }, []);
 
   useEffect(() => {
