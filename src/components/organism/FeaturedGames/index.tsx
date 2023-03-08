@@ -1,19 +1,19 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { GameItemTypes } from "../../../../services/data-types";
+import { getFeaturedGame } from "../../../../services/player";
 import GameItem from "../../molecules/GameItem";
 
 export default function FeaturedGames() {
   const [gameList, setGameList] = useState([]);
+  const ROOT_IMG = process.env.NEXT_PUBLIC_ROOT_IMG;
+
+  const getFeaturedGameList = useCallback(async () => {
+    const result = await getFeaturedGame();
+    setGameList(result);
+  }, [])
 
   useEffect(() => {
-    axios
-      .get("https://laminastore-admin.vercel.app/api/v1/players/landing-page")
-      .then((res) => {
-        setGameList(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getFeaturedGameList();
   }, []);
 
   return (
@@ -27,12 +27,12 @@ export default function FeaturedGames() {
           className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
           data-aos="fade-up"
         >
-          {gameList.map((item, index) => (
+          {gameList.map((item: GameItemTypes) => (
             <GameItem
-              key={index}
+              key={item._id}
               title={item.name}
               category={item.category.name}
-              image={`https://laminastore-admin.vercel.app/uploads/voucher/${item.thumbnail}`}
+              image={`${ROOT_IMG}/voucher/${item.thumbnail}`}
             />
           ))}
         </div>
