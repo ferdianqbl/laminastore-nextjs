@@ -16,3 +16,10 @@ export async function getFeaturedGameDetail(id: string) {
   const result = response.data;
   return result.data;
 }
+
+export async function getGameCategories() {
+  const END_POINT = `players/category`;
+  const response = await axios.get(`${ROOT_URL}/${API_VERSION}/${END_POINT}`);
+  const result = response.data;
+  return result.data;
+}

@@ -25,7 +25,7 @@ export default function Detail() {
     setDataItem(result.detail);
     setNominals(result.detail.nominals);
     setPayments(result.payments);
-  }, []);
+  }, [getFeaturedGameDetail]);
 
   useEffect(() => {
     isReady ? getDetailVoucherData() : console.log("loading");
