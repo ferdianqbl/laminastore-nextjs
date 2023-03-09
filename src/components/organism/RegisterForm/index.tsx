@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function RegisterForm() {
@@ -7,9 +8,18 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const router = useRouter();
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    localStorage.setItem(
+      "user-form",
+      JSON.stringify({ name, email, password, username, phoneNumber })
+    );
+    router.push("/sign-up-photo");
+  };
 
   return (
-    <form action="">
+    <form action="" onSubmit={handleSubmit}>
       <h2 className="text-4xl fw-bold color-palette-1 mb-10">Sign Up</h2>
       <p className="text-lg color-palette-1 m-0">
         Daftar dan bergabung dengan kami
@@ -28,6 +38,8 @@ export default function RegisterForm() {
           name="name"
           aria-describedby="name"
           placeholder="Enter your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </div>
       <div className="pt-50">
@@ -44,6 +56,8 @@ export default function RegisterForm() {
           name="username"
           aria-describedby="username"
           placeholder="Enter your username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
       </div>
       <div className="pt-50">
@@ -60,6 +74,8 @@ export default function RegisterForm() {
           name="email"
           aria-describedby="email"
           placeholder="Enter your email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="pt-50">
@@ -76,6 +92,8 @@ export default function RegisterForm() {
           name="phoneNumber"
           aria-describedby="phoneNumber"
           placeholder="Enter your Phone Number"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
         />
       </div>
       <div className="pt-50">
@@ -91,7 +109,9 @@ export default function RegisterForm() {
           id="password"
           name="password"
           aria-describedby="password"
-          placeholder="Enter your password address"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
 
