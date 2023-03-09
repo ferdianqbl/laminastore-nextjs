@@ -44,7 +44,7 @@ export default function Auth({ isLogin }: { isLogin?: boolean }) {
     <li className="nav-item my-auto">
       <a
         className="btn btn-sign-in d-flex justify-content-center ms-lg-2 rounded-pill"
-        href="./src/sign-in.html"
+        href="/sign-in"
         role="button"
       >
         Sign In
