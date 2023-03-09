@@ -1,8 +1,14 @@
 import Link from "next/link";
+import { NominalTypes, PaymentTypes } from "../../../../services/data-types";
 import NominalItem from "../TopUpItem/NominalItem";
 import PaymentItem from "../TopUpItem/PaymentItem";
 
-export default function TopUpForm({ nominals, payments }) {
+interface TopUpFormProps {
+  nominals: NominalTypes[];
+  payments: PaymentTypes[];
+}
+
+export default function TopUpForm({ nominals, payments }: TopUpFormProps) {
   return (
     <form action="./checkout.html" method="POST">
       <div className="pt-md-50 pt-30">
