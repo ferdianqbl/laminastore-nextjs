@@ -2,7 +2,7 @@ import Link from "next/link";
 import NominalItem from "../TopUpItem/NominalItem";
 import PaymentItem from "../TopUpItem/PaymentItem";
 
-export default function TopUpForm() {
+export default function TopUpForm({ nominals, payments }) {
   return (
     <form action="./checkout.html" method="POST">
       <div className="pt-md-50 pt-30">
@@ -28,24 +28,15 @@ export default function TopUpForm() {
           Nominal Top Up
         </p>
         <div className="row justify-content-between">
-          <NominalItem
-            _id="1212"
-            coinQuantity={20}
-            coinName="GOLD"
-            price={50000}
-          />
-          <NominalItem
-            _id="1213"
-            coinQuantity={20}
-            coinName="GOLD"
-            price={50000}
-          />
-          <NominalItem
-            _id="1214"
-            coinQuantity={20}
-            coinName="GOLD"
-            price={50000}
-          />
+          {nominals.map((item) => (
+            <NominalItem
+              key={item._id}
+              _id={item._id}
+              coinQuantity={item.coinQuantity}
+              coinName={item.coinName}
+              price={item.price}
+            />
+          ))}
           <div className="col-lg-4 col-sm-6"></div>
         </div>
       </div>
@@ -55,9 +46,16 @@ export default function TopUpForm() {
         </p>
         <fieldset id="paymentMethod">
           <div className="row justify-content-between">
-            <PaymentItem bankID="1" bankName="mandiri" type="transfer" />
-            <PaymentItem bankID="2" bankName="bca" type="visa" />
-            <PaymentItem bankID="3" bankName="bri" type="transfer" />
+            {payments.map((payment) =>
+              payment.banks.map((bank) => (
+                <PaymentItem
+                  key={bank._id}
+                  bankID={bank._id}
+                  bankName={bank.bankName}
+                  type={payment.type}
+                />
+              ))
+            )}
             <div className="col-lg-4 col-sm-6"></div>
           </div>
         </fieldset>

@@ -17,10 +17,14 @@ export default function Detail() {
     },
     thumbnail: "",
   });
+  const [nominals, setNominals] = useState([]);
+  const [payments, setPayments] = useState([]);
 
   const getDetailVoucherData = useCallback(async () => {
     const result = await getFeaturedGameDetail(query.voucherId as string);
     setDataItem(result.detail);
+    setNominals(result.detail.nominals);
+    setPayments(result.payments);
   }, []);
 
   useEffect(() => {
@@ -59,7 +63,7 @@ export default function Detail() {
             <div className="col-xl-9 col-lg-8 col-md-7 ps-md-25">
               <TopUpItem data={dataItem} category="mobile" />
               <hr />
-              <TopUpForm />
+              <TopUpForm nominals={nominals} payments={payments} />
             </div>
           </div>
         </div>
