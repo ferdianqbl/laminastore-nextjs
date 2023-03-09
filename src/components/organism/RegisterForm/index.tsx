@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { useState } from "react";
 
 export default function RegisterForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   return (
     <form action="">
       <h2 className="text-4xl fw-bold color-palette-1 mb-10">Sign Up</h2>
@@ -25,18 +32,18 @@ export default function RegisterForm() {
       </div>
       <div className="pt-50">
         <label
-          htmlFor="email"
+          htmlFor="username"
           className="form-label text-lg fw-medium color-palette-1 mb-10"
         >
-          Email Address
+          Username
         </label>
         <input
-          type="email"
+          type="text"
           className="form-control rounded-pill text-lg"
-          id="email"
-          name="email"
-          aria-describedby="email"
-          placeholder="Enter your email address"
+          id="username"
+          name="username"
+          aria-describedby="username"
+          placeholder="Enter your username"
         />
       </div>
       <div className="pt-50">
@@ -53,6 +60,22 @@ export default function RegisterForm() {
           name="email"
           aria-describedby="email"
           placeholder="Enter your email address"
+        />
+      </div>
+      <div className="pt-50">
+        <label
+          htmlFor="phoneNumber"
+          className="form-label text-lg fw-medium color-palette-1 mb-10"
+        >
+          Phone Number
+        </label>
+        <input
+          type="tel"
+          className="form-control rounded-pill text-lg"
+          id="phoneNumber"
+          name="phoneNumber"
+          aria-describedby="phoneNumber"
+          placeholder="Enter your Phone Number"
         />
       </div>
       <div className="pt-50">
