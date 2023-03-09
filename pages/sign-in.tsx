@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import AuthForm from "../src/components/organism/AuthForm";
+import LoginForm from "../src/components/organism/LoginForm";
 
 export default function SignIn() {
   return (
@@ -19,11 +19,7 @@ export default function SignIn() {
                   />
                 </Link>
               </div>
-              <AuthForm
-                title="Sign In"
-                subtitle="Masuk untuk melakukan proses top up"
-                isSignIn
-              />
+              <LoginForm />
             </div>
           </form>
         </div>
