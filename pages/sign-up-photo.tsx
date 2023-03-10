@@ -1,12 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { postSignUp } from "../services/auth";
 import { CategoryTypes } from "../services/data-types";
 import { getGameCategories } from "../services/player";
 
 export default function SignUpPhoto() {
+  const [localForm, setLocalForm] = useState({
+    name: "",
+    username: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+  });
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
+  const [image, setImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState("/icon/upload.svg");
 
   const getAllCategories = useCallback(async () => {
     const result = await getGameCategories();
@@ -14,13 +24,39 @@ export default function SignUpPhoto() {
     setFavorite(result[0]._id);
   }, [getGameCategories]);
 
+  const getLocalForm = async () => {
+    const localData: string | null = await localStorage.getItem("user-form");
+    const dataUser = JSON.parse(localData as string);
+    setLocalForm(dataUser);
+  };
+
   useEffect(() => {
     getAllCategories();
+    getLocalForm();
   }, []);
 
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const imageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const img = e.target.files![0];
+    setImagePreview(URL.createObjectURL(img));
+    setImage(img);
+  };
+
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log({ favorite });
+
+    const data = new FormData();
+    // data.append("image", image!);
+    data.append("name", localForm.name);
+    data.append("username", localForm.username);
+    data.append("email", localForm.email);
+    data.append("phoneNumber", localForm.phoneNumber);
+    data.append("password", localForm.password);
+    data.append("role", "user");
+    data.append("status", "Y");
+    data.append("favorite", favorite);
+
+    const result = await postSignUp(data);
+    console.log(result);
   };
 
   return (
@@ -33,11 +69,12 @@ export default function SignUpPhoto() {
                 <div className="image-upload text-center">
                   <label htmlFor="avatar">
                     <Image
-                      src="/icon/upload.svg"
+                      src={imagePreview}
                       alt="upload"
                       width={120}
                       height={120}
                       priority
+                      style={{ objectFit: "cover", borderRadius: "100%" }}
                     />
                   </label>
                   <input
@@ -45,14 +82,15 @@ export default function SignUpPhoto() {
                     type="file"
                     name="avatar"
                     accept="image/png, image/jpeg"
+                    onChange={imageHandler}
                   />
                 </div>
               </div>
               <h2 className="fw-bold text-xl text-center color-palette-1 m-0">
-                Shayna Anne
+                {localForm.name}
               </h2>
               <p className="text-lg text-center color-palette-1 m-0">
-                shayna@anne.com
+                {localForm.email}
               </p>
               <div className="pt-50 pb-50">
                 <label
