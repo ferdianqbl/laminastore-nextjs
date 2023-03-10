@@ -14,6 +14,6 @@ export async function postSignUp(data: FormData) {
     const result = response.data;
     return result.data;
   } catch (error: any) {
-    return error.message;
+    return error.response.data;
   }
 }

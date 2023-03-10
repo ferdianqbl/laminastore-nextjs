@@ -5,6 +5,10 @@ import { postSignUp } from "../services/auth";
 import { CategoryTypes } from "../services/data-types";
 import { getGameCategories } from "../services/player";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
+
 export default function SignUpPhoto() {
   const [localForm, setLocalForm] = useState({
     name: "",
@@ -17,6 +21,8 @@ export default function SignUpPhoto() {
   const [favorite, setFavorite] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState("/icon/upload.svg");
+
+  const router = useRouter();
 
   const getAllCategories = useCallback(async () => {
     const result = await getGameCategories();
@@ -56,7 +62,22 @@ export default function SignUpPhoto() {
     data.append("favorite", favorite);
 
     const result = await postSignUp(data);
-    console.log(result);
+
+    if (result.error === 1) {
+      toast.error(result.message, {
+        theme: "colored",
+      });
+      setTimeout(() => {
+        localStorage.removeItem("user-form");
+        router.push("/sign-up");
+      }, 3000);
+    } else {
+      localStorage.removeItem("user-form");
+      toast.success("Register Success", {
+        theme: "colored",
+      });
+      router.push("/sign-up-success");
+    }
   };
 
   return (
@@ -137,6 +158,7 @@ export default function SignUpPhoto() {
           </div>
         </form>
       </div>
+      <ToastContainer autoClose={3000} />
     </section>
   );
 }
