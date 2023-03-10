@@ -26,8 +26,8 @@ export default function SignUpPhoto() {
 
   const getAllCategories = useCallback(async () => {
     const result = await getGameCategories();
-    setCategories(result);
-    setFavorite(result[0]._id);
+    setCategories(result.data);
+    setFavorite(result.data[0]._id);
   }, [getGameCategories]);
 
   const getLocalForm = async () => {

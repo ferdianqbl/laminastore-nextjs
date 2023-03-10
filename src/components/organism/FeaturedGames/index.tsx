@@ -9,8 +9,8 @@ export default function FeaturedGames() {
 
   const getFeaturedGameList = useCallback(async () => {
     const result = await getFeaturedGame();
-    setGameList(result);
-  }, [])
+    setGameList(result.data);
+  }, []);
 
   useEffect(() => {
     getFeaturedGameList();

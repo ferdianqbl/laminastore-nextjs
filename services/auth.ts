@@ -1,34 +1,22 @@
-import axios from "axios";
+import callAPI from "../config/api";
 
 const ROOT_URL = process.env.NEXT_PUBLIC_ROOT_URL;
 const API_VERSION = "api/v1";
 
 export async function postSignUp(data: FormData) {
-  try {
-    const END_POINT = "auth/sign-up";
-
-    const response = await axios.post(
-      `${ROOT_URL}/${API_VERSION}/${END_POINT}`,
-      data
-    );
-    const result = response.data;
-    return result.data;
-  } catch (error: any) {
-    return error.response.data;
-  }
+  const url = `${ROOT_URL}/${API_VERSION}/auth/sign-up`;
+  return callAPI({
+    url,
+    method: "POST",
+    data,
+  });
 }
 
 export async function postLogin(data: { email: string; password: string }) {
-  try {
-    const END_POINT = "auth/login";
-
-    const response = await axios.post(
-      `${ROOT_URL}/${API_VERSION}/${END_POINT}`,
-      data
-    );
-    const result = response.data;
-    return result;
-  } catch (error: any) {
-    return error.response.data;
-  }
+  const url = `${ROOT_URL}/${API_VERSION}/auth/login`;
+  return await callAPI({
+    url,
+    method: "POST",
+    data,
+  });
 }
