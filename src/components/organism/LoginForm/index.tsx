@@ -1,9 +1,51 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { postLogin } from "../../../../services/auth";
 
 export default function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const submitHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      toast.error("Email and Password should not be empty", {
+        position: "top-center",
+        theme: "colored",
+      });
+    } else {
+      const data = {
+        email,
+        password,
+      };
+
+      const result = await postLogin(data);
+
+      if (result.error === 1) {
+        toast.error(result.message, {
+          position: "top-center",
+          theme: "colored",
+        });
+      } else {
+        toast.success("Login Success", {
+          position: "top-center",
+          theme: "colored",
+        });
+
+        router.push("/");
+      }
+    }
+  };
+
   return (
     <>
-      <h2 className="text-4xl fw-bold color-palette-1 mb-10">SIgn In</h2>
+      <ToastContainer autoClose={1500} />
+      <h2 className="text-4xl fw-bold color-palette-1 mb-10">Sign In</h2>
       <p className="text-lg color-palette-1 m-0">
         Masuk untuk melakukan proses top up
       </p>
@@ -21,6 +63,8 @@ export default function LoginForm() {
           name="email"
           aria-describedby="email"
           placeholder="Enter your email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
 
@@ -37,14 +81,17 @@ export default function LoginForm() {
           id="password"
           name="password"
           aria-describedby="password"
-          placeholder="Enter your password address"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
 
       <div className="button-group d-flex flex-column mx-auto pt-50">
         <button
-          type="submit"
+          type="button"
           className="btn btn-sign-in fw-medium text-lg color-palette-1 text-white rounded-pill mb-16"
+          onClick={submitHandler}
         >
           Continue to Sign In
         </button>
