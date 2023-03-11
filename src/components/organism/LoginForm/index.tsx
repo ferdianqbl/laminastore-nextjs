@@ -1,25 +1,27 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { postLogin } from "../../../../services/auth";
+import { saveTokenToCookies } from "../../../../config/token";
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { postLogin } from "../../../../services/auth";
-import Cookies from "js-cookie";
-import { saveTokenToCookies } from "../../../../config/token";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isClicked, setIsClicked] = useState(false);
   const router = useRouter();
 
   const submitHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
+    setIsClicked(true);
     if (!email || !password) {
       toast.error("Email and Password should not be empty", {
         position: "top-center",
         theme: "colored",
       });
+      setIsClicked(false);
     } else {
       const data = {
         email,
@@ -33,6 +35,7 @@ export default function LoginForm() {
           position: "top-center",
           theme: "colored",
         });
+        setIsClicked(false);
       } else {
         toast.success("Login Success", {
           position: "top-center",
@@ -94,6 +97,7 @@ export default function LoginForm() {
         <button
           type="button"
           className="btn btn-sign-in fw-medium text-lg color-palette-1 text-white rounded-pill mb-16"
+          disabled={isClicked}
           onClick={submitHandler}
         >
           Continue to Sign In
