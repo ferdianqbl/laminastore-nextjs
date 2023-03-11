@@ -1,6 +1,27 @@
+import { useEffect, useState } from "react";
 import Menu from "./Menu";
+import { getToken } from "../../../../config/token";
+import Image from "next/image";
 
-export default function Auth({ isLogin }: { isLogin?: boolean }) {
+export default function Auth() {
+  const ROOT_IMG = process.env.NEXT_PUBLIC_ROOT_IMG;
+  const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState({
+    avatar: "",
+    email: "",
+    id: "",
+    name: "",
+    phoneNumber: "",
+    username: "",
+  });
+  useEffect(() => {
+    const token: any = getToken();
+    if (token) {
+      setUser(token.player);
+      setIsLogin(true);
+    }
+  }, []);
+
   if (isLogin)
     return (
       <li className="nav-item my-auto dropdown d-flex">
@@ -14,13 +35,27 @@ export default function Auth({ isLogin }: { isLogin?: boolean }) {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img
-              src="/img/avatar-1.png"
-              className="rounded-circle"
-              width="40"
-              height="40"
-              alt=""
-            />
+            {user.avatar ? (
+              <Image
+                src={`${ROOT_IMG}/player/${user.avatar}`}
+                className="rounded-circle"
+                width="40"
+                height="40"
+                alt=""
+                style={{ objectFit: "cover", objectPosition: "center" }}
+              />
+            ) : (
+              <>
+                <Image
+                  src="https://source.unsplash.com/random/40x40/?person"
+                  className="rounded-circle"
+                  width="40"
+                  height="40"
+                  alt=""
+                  style={{ objectFit: "cover", objectPosition: "center" }}
+                />
+              </>
+            )}
           </a>
 
           <ul

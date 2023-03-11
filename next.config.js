@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["laminastore-admin.vercel.app"],
+    domains: ["laminastore-admin.vercel.app", "source.unsplash.com"],
   },
 };
 
