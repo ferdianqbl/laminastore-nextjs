@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Menu from "./Menu";
-import { getToken } from "../../../../config/token";
+import { getToken, removeTokenFromCookies } from "../../../../config/token";
 import Image from "next/image";
 import { JWTPayloadTypes, UserTypes } from "../../../../services/data-types";
 import { useRouter } from "next/router";
@@ -22,11 +22,11 @@ export default function Auth() {
     if (payload) {
       setUser(payload.player);
       setIsLogin(true);
-    }
-  }, []);
+    } else setIsLogin(false);
+  }, [isLogin]);
 
   const logoutHandler = () => {
-    localStorage.removeItem("token");
+    removeTokenFromCookies();
     setIsLogin(false);
     router.push("/");
   };

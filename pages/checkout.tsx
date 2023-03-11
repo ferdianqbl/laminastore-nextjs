@@ -3,8 +3,10 @@ import Link from "next/link";
 import CheckoutConfirmation from "../src/components/organism/CheckoutConfirmation";
 import CheckoutDetail from "../src/components/organism/CheckoutDetail";
 import CheckoutItem from "../src/components/organism/CheckoutItem";
+import { getTokenFromCookiesAndDecodeForServer } from "../config/token";
+import { UserTypes } from "../services/data-types";
 
-export default function checkout() {
+export default function checkout({ user }: { user: UserTypes }) {
   return (
     <section className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
       <div className="container-fluid">
@@ -31,4 +33,28 @@ export default function checkout() {
       </div>
     </section>
   );
+}
+
+export async function getServerSideProps({ req }: { req: any }) {
+  const { tkn } = req.cookies;
+  if (!tkn)
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+
+  const payload = getTokenFromCookiesAndDecodeForServer(tkn);
+  const user: UserTypes = payload.player;
+
+  if (user.avatar)
+    user.avatar = `${process.env.NEXT_PUBLIC_ROOT_IMG}/player/${user.avatar}`;
+  else user.avatar = "https://source.unsplash.com/random/40x40/?person";
+
+  return {
+    props: {
+      user,
+    },
+  };
 }
