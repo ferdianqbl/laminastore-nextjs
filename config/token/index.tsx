@@ -10,14 +10,15 @@ export function saveTokenToCookies(token: string) {
 export function getTokenFromCookies() {
   const tokenBase64: string | undefined = Cookies.get("tkn"); // get token from cookie
 
-  if (!tokenBase64) return ""; // if token is undefined, return empty string
+  if (!tokenBase64) return undefined; // if token is undefined, return empty string
 
-  const token = atob(tokenBase64!); // decode token from base64
+  const token = atob(tokenBase64); // decode token from base64
   return token;
 }
 
-export function decodeToken() {
+export function getToken() {
   const token = getTokenFromCookies(); // get token from cookie
+  if (!token) return undefined; // if token is undefined, return empty string
   const decoded = jwtDecode(token); // decode token
   return decoded;
 }
