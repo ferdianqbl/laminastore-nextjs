@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
+import { JWTPayloadTypes } from "../../services/data-types";
 
 // const decoded = jwtDecode(token); // decode token (example)
 export function saveTokenToCookies(token: string) {
@@ -19,7 +20,7 @@ export function getTokenFromCookies() {
 export function getToken() {
   const token = getTokenFromCookies(); // get token from cookie
   if (!token) return undefined; // if token is undefined, return empty string
-  const decoded = jwtDecode(token); // decode token
+  const decoded: JWTPayloadTypes = jwtDecode(token); // decode token
   return decoded;
 }
 

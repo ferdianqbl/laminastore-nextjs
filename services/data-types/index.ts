@@ -37,3 +37,18 @@ export interface PaymentTypes {
   status: string;
   banks: BankTypes[];
 }
+
+export interface UserTypes {
+  id: string;
+  name: string;
+  email: string;
+  username: string;
+  avatar?: string;
+  phoneNumber: string;
+}
+
+export interface JWTPayloadTypes {
+  player: UserTypes;
+  exp?: number;
+  iat?: number;
+}

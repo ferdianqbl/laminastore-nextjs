@@ -2,25 +2,34 @@ import { useEffect, useState } from "react";
 import Menu from "./Menu";
 import { getToken } from "../../../../config/token";
 import Image from "next/image";
+import { JWTPayloadTypes, UserTypes } from "../../../../services/data-types";
+import { useRouter } from "next/router";
 
 export default function Auth() {
   const ROOT_IMG = process.env.NEXT_PUBLIC_ROOT_IMG;
+  const router = useRouter();
   const [isLogin, setIsLogin] = useState(false);
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserTypes>({
+    id: "",
     avatar: "",
     email: "",
-    id: "",
     name: "",
-    phoneNumber: "",
     username: "",
+    phoneNumber: "",
   });
   useEffect(() => {
-    const token: any = getToken();
-    if (token) {
-      setUser(token.player);
+    const payload: JWTPayloadTypes | undefined = getToken();
+    if (payload) {
+      setUser(payload.player);
       setIsLogin(true);
     }
   }, []);
+
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    setIsLogin(false);
+    router.push("/");
+  };
 
   if (isLogin)
     return (
@@ -35,7 +44,7 @@ export default function Auth() {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            {user.avatar ? (
+            {user?.avatar ? (
               <Image
                 src={`${ROOT_IMG}/player/${user.avatar}`}
                 className="rounded-circle"
@@ -62,14 +71,14 @@ export default function Auth() {
             className="dropdown-menu border-0"
             aria-labelledby="dropdownMenuLink"
           >
-            <Menu title="My Profile" isDropdown href="/member" />
-            <Menu title="Wallet" isDropdown />
-            <Menu
-              title="Account Settings"
-              isDropdown
-              href="/member/edit-profile"
-            />
-            <Menu title="Log Out" isDropdown href="/sign-in" />
+            <Menu title="My Profile" href="/member" />
+            <Menu title="Wallet" />
+            <Menu title="Account Settings" href="/member/edit-profile" />
+            <li className="nav-item my-auto">
+              <a type="button" className="nav-link" onClick={logoutHandler}>
+                Logout
+              </a>
+            </li>
           </ul>
         </div>
       </li>
