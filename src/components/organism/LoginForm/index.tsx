@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { postLogin } from "../../../../services/auth";
+import Cookies from "js-cookie";
+import { saveTokenToCookies } from "../../../../config/token";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -36,7 +38,8 @@ export default function LoginForm() {
           position: "top-center",
           theme: "colored",
         });
-
+        const { token } = result.data; // get token
+        saveTokenToCookies(token); // save token to cookie
         router.push("/");
       }
     }
