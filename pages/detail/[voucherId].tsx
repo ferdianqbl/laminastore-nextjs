@@ -25,6 +25,7 @@ export default function Detail() {
     setDataItem(result.data.detail);
     setNominals(result.data.detail.nominals);
     setPayments(result.data.payments);
+    localStorage.setItem("data-item", JSON.stringify(result.data.detail));
   }, [getFeaturedGameDetail]);
 
   useEffect(() => {
