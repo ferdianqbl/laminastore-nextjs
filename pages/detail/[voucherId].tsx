@@ -26,11 +26,11 @@ export default function Detail() {
     setNominals(result.data.detail.nominals);
     setPayments(result.data.payments);
     localStorage.setItem("data-item", JSON.stringify(result.data.detail));
-  }, [getFeaturedGameDetail]);
+  }, []);
 
   useEffect(() => {
-    isReady ? getDetailVoucherData() : console.log("loading");
-  }, []);
+    isReady && getDetailVoucherData();
+  }, [isReady]);
 
   return (
     <>

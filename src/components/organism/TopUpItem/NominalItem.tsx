@@ -5,7 +5,7 @@ interface NominalItemProps {
   coinQuantity: number;
   coinName: string;
   price: number;
-  onClick?: () => void;
+  onChange?: () => void;
 }
 
 export default function NominalItem({
@@ -13,13 +13,13 @@ export default function NominalItem({
   coinQuantity,
   coinName,
   price,
-  onClick,
+  onChange,
 }: NominalItemProps) {
   return (
     <label
       className="col-lg-4 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10"
       htmlFor={_id}
-      onChange={onClick}
+      onChange={onChange}
     >
       <input
         className="d-none"

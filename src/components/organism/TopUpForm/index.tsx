@@ -11,11 +11,9 @@ interface TopUpFormProps {
 
 export default function TopUpForm({ nominals, payments }: TopUpFormProps) {
   const [verifyID, setVerifyID] = useState("");
-  const [nominal, setNominal] = useState<NominalTypes | null>(null);
 
-  const nominalClickHandler = (data: NominalTypes) => {
-    setNominal(data);
-    console.log({ nominal });
+  const nominalChangeHandler = (nominalData: NominalTypes) => {
+    localStorage.setItem("data-nominal", JSON.stringify(nominalData));
   };
 
   return (
@@ -52,7 +50,7 @@ export default function TopUpForm({ nominals, payments }: TopUpFormProps) {
               coinQuantity={item.coinQuantity}
               coinName={item.coinName}
               price={item.price}
-              onClick={() => nominalClickHandler(item)}
+              onChange={() => nominalChangeHandler(item)}
             />
           ))}
           <div className="col-lg-4 col-sm-6"></div>
