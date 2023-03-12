@@ -10,6 +10,7 @@ import TopUpItem from "../../src/components/organism/TopUpItem";
 export default function Detail() {
   const ROOT_IMG = process.env.NEXT_PUBLIC_ROOT_IMG;
   const { query, isReady } = useRouter();
+  const router = useRouter();
   const [dataItem, setDataItem] = useState({
     name: "",
     category: {
@@ -29,8 +30,9 @@ export default function Detail() {
   }, []);
 
   useEffect(() => {
-    isReady && getDetailVoucherData();
-  }, [isReady]);
+    if (Object.keys(query).length <= 0) router.push("/");
+    else isReady && getDetailVoucherData();
+  }, []);
 
   return (
     <>
