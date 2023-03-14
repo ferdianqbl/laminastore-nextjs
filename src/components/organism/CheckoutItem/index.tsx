@@ -24,9 +24,17 @@ export default function CheckoutItem() {
   return (
     <div className="game-checkout d-flex flex-row align-items-center pt-md-50 pb-md-50 pt-30 pb-30">
       <div className="pe-4">
-        <div className="cropped">
+        <div
+          className="cropped"
+          style={{
+            objectFit: "cover",
+            width: "100%",
+            height: "100%",
+            objectPosition: "center",
+          }}
+        >
           <img
-            src={`${process.env.NEXT_PUBLIC_ROOT_IMG}/${dataItem.thumbnail}`}
+            src={`${process.env.NEXT_PUBLIC_ROOT_IMG}/voucher/${dataItem.thumbnail}`}
             className="img-fluid"
             alt=""
           />
