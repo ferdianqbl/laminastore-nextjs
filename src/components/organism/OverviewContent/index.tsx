@@ -3,6 +3,10 @@ import CategoryCard from "./CategoryCard";
 import TableRow from "./TableRow";
 import { getDashboard } from "../../../../services/member";
 import { toast } from "react-toastify";
+import {
+  TopupCategoryTypes,
+  TransactionHistoryTypes,
+} from "../../../../services/data-types";
 
 export default function OverviewContent() {
   const [count, setCount] = useState([]);
@@ -36,8 +40,12 @@ export default function OverviewContent() {
           </p>
           <div className="main-content">
             <div className="row">
-              {count.map((item: any) => (
-                <CategoryCard icon="ic-desktop" nominal={item.value}>
+              {count.map((item: TopupCategoryTypes) => (
+                <CategoryCard
+                  key={item._id}
+                  icon="ic-desktop"
+                  nominal={item.value}
+                >
                   Game
                   <br />
                   {item.name}
@@ -68,8 +76,9 @@ export default function OverviewContent() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item: any) => (
+                {data.map((item: TransactionHistoryTypes) => (
                   <TableRow
+                    key={item._id}
                     image={`${ROOT_IMG}/voucher/${item.voucherTopupHistory.thumbnail}`}
                     title={item.voucherTopupHistory.gameName}
                     category={item.voucherTopupHistory.category}

@@ -7,7 +7,7 @@ interface TableRowProps {
   category: string;
   item: string;
   price: number;
-  status: "pending" | "success" | "failed";
+  status: string;
 }
 
 export default function TableRow({
