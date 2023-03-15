@@ -31,7 +31,9 @@ export default async function callAPI({
     const result = {
       error: 0,
       message: "success",
-      data: response.data.data,
+      data: response.data.count_category_value
+        ? response.data
+        : response.data.data,
     };
     return result;
   } catch (error: any) {

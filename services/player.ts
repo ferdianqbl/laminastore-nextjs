@@ -1,4 +1,3 @@
-import axios from "axios";
 import callAPI from "../config/api";
 import { CheckoutTypes } from "./data-types";
 

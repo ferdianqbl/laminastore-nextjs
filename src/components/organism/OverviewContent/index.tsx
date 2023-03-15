@@ -1,7 +1,30 @@
+import { useCallback, useEffect, useState } from "react";
 import CategoryCard from "./CategoryCard";
 import TableRow from "./TableRow";
+import { getDashboard } from "../../../../services/member";
+import { toast } from "react-toastify";
 
 export default function OverviewContent() {
+  const [count, setCount] = useState([]);
+  const [data, setData] = useState([]);
+
+  const getDashboardData = useCallback(async () => {
+    const result = await getDashboard();
+    if (result.error)
+      toast.error(result.message, {
+        position: "top-center",
+        theme: "colored",
+      });
+    else {
+      setCount(result.data.count_category_value);
+      setData(result.data.data);
+    }
+  }, [getDashboard]);
+
+  useEffect(() => {
+    getDashboardData();
+  }, []);
+
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
@@ -12,21 +35,18 @@ export default function OverviewContent() {
           </p>
           <div className="main-content">
             <div className="row">
-              <CategoryCard icon="ic-desktop" nominal={18000500}>
-                Game
-                <br />
-                Desktop
-              </CategoryCard>
-              <CategoryCard icon="ic-mobile" nominal={8455000}>
-                Game
-                <br />
-                Mobile
-              </CategoryCard>
-              <CategoryCard icon="ic-desktop" nominal={5000000}>
+              {count.map((item: any) => (
+                <CategoryCard icon="ic-desktop" nominal={item.value}>
+                  Game
+                  <br />
+                  {item.name}
+                </CategoryCard>
+              ))}
+              {/* <CategoryCard icon="ic-desktop" nominal={5000000}>
                 Other
                 <br />
                 Categories
-              </CategoryCard>
+              </CategoryCard> */}
             </div>
           </div>
         </div>
