@@ -28,12 +28,11 @@ export default async function callAPI({
       headers,
     });
 
+    const resultLength = Object.keys(response.data).length;
     const result = {
       error: 0,
       message: "success",
-      data: response.data.count_category_value
-        ? response.data
-        : response.data.data,
+      data: resultLength > 1 ? response.data : response.data.data,
     };
     return result;
   } catch (error: any) {
