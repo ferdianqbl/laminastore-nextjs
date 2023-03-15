@@ -5,12 +5,24 @@ export default function CheckoutConfirmation() {
   const [checked, setChecked] = useState(false);
 
   const onSubmitHandler = () => {
-    console.log(checked);
     if (!checked)
       toast.error("Please check the checkbox", {
         position: "top-center",
         theme: "colored",
       });
+    else {
+      const dataItem = JSON.parse(localStorage.getItem("data-item")!);
+      const dataTopUp = JSON.parse(localStorage.getItem("top-up-data")!);
+      const data = {
+        voucherId: dataItem._id,
+        nominalId: dataTopUp.nominalData._id,
+        paymentId: dataTopUp.paymentData.payment._id,
+        bankId: dataTopUp.paymentData.bank._id,
+        bankOwner: dataTopUp.bankAccountName,
+        accountUser: dataTopUp.verifyID,
+      };
+      console.log(data);
+    }
   };
 
   return (
