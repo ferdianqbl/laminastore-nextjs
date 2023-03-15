@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 export default function OverviewContent() {
   const [count, setCount] = useState([]);
   const [data, setData] = useState([]);
+  const ROOT_IMG = process.env.NEXT_PUBLIC_ROOT_IMG;
 
   const getDashboardData = useCallback(async () => {
     const result = await getDashboard();
@@ -67,38 +68,16 @@ export default function OverviewContent() {
                 </tr>
               </thead>
               <tbody>
-                <TableRow
-                  image="overview-1"
-                  title="Mobile Legends: The New Battle 2021"
-                  category="Desktop"
-                  item={200}
-                  price={290000}
-                  status="pending"
-                />
-                <TableRow
-                  image="overview-2"
-                  title="Call of Duty:Modern"
-                  category="Desktop"
-                  item={550}
-                  price={740000}
-                  status="success"
-                />
-                <TableRow
-                  image="overview-3"
-                  title="Clash of Clans"
-                  category="Mobile"
-                  item={100}
-                  price={120000}
-                  status="failed"
-                />
-                <TableRow
-                  image="overview-4"
-                  title="The Royal Game"
-                  category="Mobile"
-                  item={225}
-                  price={200000}
-                  status="pending"
-                />
+                {data.map((item: any) => (
+                  <TableRow
+                    image={`${ROOT_IMG}/voucher/${item.voucherTopupHistory.thumbnail}`}
+                    title={item.voucherTopupHistory.gameName}
+                    category={item.voucherTopupHistory.category}
+                    item={`${item.voucherTopupHistory.coinQuantity} ${item.voucherTopupHistory.coinName}`}
+                    price={item.value}
+                    status={item.status}
+                  />
+                ))}
               </tbody>
             </table>
           </div>
