@@ -52,3 +52,12 @@ export interface JWTPayloadTypes {
   exp?: number;
   iat?: number;
 }
+
+export interface CheckoutTypes {
+  voucherId: string;
+  nominalId: string;
+  paymentId: string;
+  bankId: string;
+  bankOwner: string;
+  accountUser: string;
+}

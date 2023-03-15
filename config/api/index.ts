@@ -1,15 +1,31 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { getTokenFromCookies } from "../token";
+
+interface CallAPIProps extends AxiosRequestConfig {
+  token?: boolean;
+}
 
 export default async function callAPI({
   url,
   method,
   data,
-}: AxiosRequestConfig) {
+  token,
+}: CallAPIProps) {
   try {
+    let headers = {};
+    if (token) {
+      const JWTToken = getTokenFromCookies();
+      if (!JWTToken) throw new Error("Token not found");
+      headers = {
+        Authorization: `Bearer ${JWTToken}`,
+      };
+    }
+
     const response = await axios({
       url,
       method,
       data,
+      headers,
     });
 
     const result = {
