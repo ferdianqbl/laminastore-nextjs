@@ -5,6 +5,7 @@ import CheckoutDetail from "../src/components/organism/CheckoutDetail";
 import CheckoutItem from "../src/components/organism/CheckoutItem";
 import { getTokenFromCookiesAndDecodeForServer } from "../config/token";
 import { UserTypes } from "../services/data-types";
+import { toast } from "react-toastify";
 
 export default function checkout({ user }: { user: UserTypes }) {
   return (
@@ -37,14 +38,18 @@ export default function checkout({ user }: { user: UserTypes }) {
 
 export async function getServerSideProps({ req }: { req: any }) {
   const { tkn } = req.cookies;
-  if (!tkn)
+  if (!tkn) {
+    toast.error("Please login first", {
+      position: "top-center",
+      theme: "colored",
+    });
     return {
       redirect: {
         destination: "/sign-in",
         permanent: false,
       },
     };
-
+  }
   const payload = getTokenFromCookiesAndDecodeForServer(tkn);
   const user: UserTypes = payload.player;
 

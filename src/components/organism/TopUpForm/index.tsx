@@ -1,5 +1,4 @@
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 import {
   BankTypes,
@@ -64,7 +63,6 @@ export default function TopUpForm({ nominals, payments }: TopUpFormProps) {
 
   return (
     <>
-      <ToastContainer />
       <form action="./checkout.html" method="POST">
         <div className="pt-md-50 pt-30">
           <div className="">

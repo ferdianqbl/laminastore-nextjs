@@ -16,7 +16,8 @@ import "../styles/transactions.css";
 import "../styles/transactions-detail.css";
 import "../styles/edit-profile.css";
 import "../styles/navbar-log-in.css";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -49,6 +50,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
       </Head>
       <Component {...pageProps} />
+      <ToastContainer />
 
       {/* Bootstrap */}
       <script
