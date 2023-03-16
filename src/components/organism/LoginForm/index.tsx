@@ -40,7 +40,7 @@ export default function LoginForm() {
           position: "top-center",
           theme: "colored",
         });
-        const { token } = result.data; // get token
+        const { token } = result.data.data; // get token
         saveTokenToCookies(token); // save token to cookie
         router.push("/");
       }
