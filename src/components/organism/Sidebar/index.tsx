@@ -1,6 +1,10 @@
+import Image from "next/image";
 import Footer from "./Footer";
 import MenuItem from "./MenuItem";
 import Profile from "./Profile";
+import { removeTokenFromCookies } from "../../../../config/token";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 interface SidebarProps {
   activeMenu:
@@ -13,6 +17,12 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ activeMenu }: SidebarProps) {
+  const router = useRouter();
+  const logoutHandler = () => {
+    removeTokenFromCookies();
+    router.push("/");
+  };
+
   return (
     <section className="sidebar">
       <div className="content pt-50 pb-30 ps-30">
@@ -38,7 +48,24 @@ export default function Sidebar({ activeMenu }: SidebarProps) {
             href="/member/edit-profile"
             active={activeMenu === "settings"}
           />
-          <MenuItem title="Log Out" icon="logout-ic" href="/sign-in" />
+          <div className="item mb-30">
+            <Image
+              src="/icon/logout-ic.svg"
+              width={25}
+              height={25}
+              alt="icon"
+              className="icon me-3"
+            />
+            <p className="item-title m-0">
+              <a
+                type="button"
+                className="text-lg text-decoration-none"
+                onClick={logoutHandler}
+              >
+                Log Out
+              </a>
+            </p>
+          </div>
         </div>
         <Footer />
       </div>
