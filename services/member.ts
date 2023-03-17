@@ -11,3 +11,12 @@ export async function getDashboard() {
     token: true,
   });
 }
+
+export async function getMemberTransactions() {
+  const url = `${ROOT_URL}/${API_VERSION}/players/history`;
+  return await callAPI({
+    url,
+    method: "GET",
+    token: true,
+  });
+}

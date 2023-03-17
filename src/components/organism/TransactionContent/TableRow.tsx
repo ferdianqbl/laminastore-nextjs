@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { NumericFormat } from "react-number-format";
 
 interface TableRowProps {
   image: string;
   title: string;
   category: string;
-  item: number;
+  item: string;
   price: number;
-  status: "pending" | "success" | "failed";
+  status: string;
 }
 
 export default function TableRow({
@@ -20,13 +21,19 @@ export default function TableRow({
 }: TableRowProps) {
   return (
     <tr data-category={status} className="align-middle">
-      <th scope="row">
+      <th scope="row" className="d-flex align-items-center">
         <Image
           className="float-start me-3 mb-lg-0 mb-3"
-          src={`/img/${image}.png`}
+          src={image}
           width={80}
           height={60}
-          alt={image}
+          alt="game thumb"
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+            height: "min-content",
+            width: "min-content",
+          }}
         />
         <div className="game-title-header">
           <p className="game-title fw-medium text-start color-palette-1 m-0">
@@ -38,10 +45,18 @@ export default function TableRow({
         </div>
       </th>
       <td>
-        <p className="fw-medium color-palette-1 m-0">{item} Gold</p>
+        <p className="fw-medium color-palette-1 m-0">{item}</p>
       </td>
       <td>
-        <p className="fw-medium color-palette-1 m-0">{price}</p>
+        <p className="fw-medium color-palette-1 m-0">
+          <NumericFormat
+            value={price}
+            displayType="text"
+            prefix="IDR "
+            decimalSeparator=","
+            thousandSeparator="."
+          />
+        </p>
       </td>
       <td>
         <div>

@@ -1,7 +1,34 @@
+import { useCallback, useEffect, useState } from "react";
 import ButtonTab from "./ButtonTab";
 import TableRow from "./TableRow";
+import { getMemberTransactions } from "../../../../services/member";
+import { toast } from "react-toastify";
+import { NumericFormat } from "react-number-format";
+import { TransactionHistoryTypes } from "../../../../services/data-types";
 
 export default function TransactionContent() {
+  const [total, setTotal] = useState(0);
+  const [data, setData] = useState([]);
+  const ROOT_IMG = process.env.NEXT_PUBLIC_ROOT_IMG;
+
+  const getAllMemberTransaction = useCallback(async () => {
+    const result = await getMemberTransactions();
+    if (result.error) {
+      toast.error(result.message, {
+        position: "top-center",
+        theme: "colored",
+      });
+    } else {
+      console.log(result.data);
+      setTotal(result.data.total_value);
+      setData(result.data.data);
+    }
+  }, [getMemberTransactions]);
+
+  useEffect(() => {
+    getAllMemberTransaction();
+  }, []);
+
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
@@ -11,7 +38,13 @@ export default function TransactionContent() {
         <div className="mb-30">
           <p className="text-lg color-palette-2 mb-12">You’ve spent</p>
           <h3 className="text-5xl fw-medium color-palette-1">
-            Rp 4.518.000.500
+            <NumericFormat
+              value={total}
+              displayType="text"
+              prefix="IDR "
+              decimalSeparator=","
+              thousandSeparator="."
+            />
           </h3>
         </div>
         <div className="row mt-30 mb-20">
@@ -42,38 +75,17 @@ export default function TransactionContent() {
                 </tr>
               </thead>
               <tbody id="list_status_item">
-                <TableRow
-                  image="overview-1"
-                  title="Mobile Legends: The New Battle 2021"
-                  category="desktop"
-                  item={200}
-                  price={290000}
-                  status="pending"
-                />
-                <TableRow
-                  image="overview-2"
-                  title="Call of Duty:Modern"
-                  category="desktop"
-                  item={550}
-                  price={740000}
-                  status="success"
-                />
-                <TableRow
-                  image="overview-3"
-                  title="Clash of Clans"
-                  category="Mobile"
-                  item={100}
-                  price={120000}
-                  status="failed"
-                />
-                <TableRow
-                  image="overview-4"
-                  title="The Royal Game"
-                  category="Mobile"
-                  item={225}
-                  price={200000}
-                  status="pending"
-                />
+                {data.map((item: TransactionHistoryTypes) => (
+                  <TableRow
+                    key={item._id}
+                    image={`${ROOT_IMG}/voucher/${item.voucherTopupHistory.thumbnail}`}
+                    title={item.voucherTopupHistory.gameName}
+                    category={item.voucherTopupHistory.category}
+                    item={`${item.voucherTopupHistory.coinQuantity} ${item.voucherTopupHistory.coinName}`}
+                    price={item.value}
+                    status={item.status}
+                  />
+                ))}
               </tbody>
             </table>
           </div>
