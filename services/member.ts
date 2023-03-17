@@ -12,8 +12,12 @@ export async function getDashboard() {
   });
 }
 
-export async function getMemberTransactions() {
-  const url = `${ROOT_URL}/${API_VERSION}/players/history`;
+export async function getMemberTransactions(requestParams?: string) {
+  let params = "";
+  if (requestParams && requestParams === "all") params = "";
+  else if (requestParams) params = `?status=${requestParams}`;
+
+  const url = `${ROOT_URL}/${API_VERSION}/players/history/${params}`;
   return await callAPI({
     url,
     method: "GET",

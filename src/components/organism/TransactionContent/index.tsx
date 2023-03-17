@@ -12,18 +12,21 @@ export default function TransactionContent() {
   const [tabActive, setTabActive] = useState("all");
   const ROOT_IMG = process.env.NEXT_PUBLIC_ROOT_IMG;
 
-  const getAllMemberTransaction = useCallback(async () => {
-    const result = await getMemberTransactions();
-    if (result.error) {
-      toast.error(result.message, {
-        position: "top-center",
-        theme: "colored",
-      });
-    } else {
-      setTotal(result.data.total_value);
-      setData(result.data.data);
-    }
-  }, [getMemberTransactions]);
+  const getAllMemberTransaction = useCallback(
+    async (tab?: string) => {
+      const result = await getMemberTransactions(tab);
+      if (result.error) {
+        toast.error(result.message, {
+          position: "top-center",
+          theme: "colored",
+        });
+      } else {
+        setTotal(result.data.total_value);
+        setData(result.data.data);
+      }
+    },
+    [getMemberTransactions]
+  );
 
   useEffect(() => {
     getAllMemberTransaction();
@@ -31,6 +34,7 @@ export default function TransactionContent() {
 
   const activeTabHandler = (tab: string) => () => {
     setTabActive(tab);
+    getAllMemberTransaction(tab);
   };
 
   return (
