@@ -19,7 +19,6 @@ export default function TransactionContent() {
         theme: "colored",
       });
     } else {
-      console.log(result.data);
       setTotal(result.data.total_value);
       setData(result.data.data);
     }
