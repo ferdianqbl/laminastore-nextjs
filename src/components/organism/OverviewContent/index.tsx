@@ -7,20 +7,28 @@ import {
   TopupCategoryTypes,
   TransactionHistoryTypes,
 } from "../../../../services/data-types";
+import {
+  getTokenFromCookies,
+  removeTokenFromCookies,
+} from "../../../../config/token";
+import { useRouter } from "next/router";
 
 export default function OverviewContent() {
   const [count, setCount] = useState([]);
   const [data, setData] = useState([]);
   const ROOT_IMG = process.env.NEXT_PUBLIC_ROOT_IMG;
+  const router = useRouter();
 
   const getDashboardData = useCallback(async () => {
     const result = await getDashboard();
-    if (result.error)
+    if (result.error) {
       toast.error(result.message, {
         position: "top-center",
         theme: "colored",
       });
-    else {
+      if (getTokenFromCookies()) removeTokenFromCookies();
+      router.push("/sign-in");
+    } else {
       setCount(result.data.count_category_value);
       setData(result.data.data);
     }
