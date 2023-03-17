@@ -3,6 +3,7 @@ import Link from "next/link";
 import { NumericFormat } from "react-number-format";
 
 interface TableRowProps {
+  id: string;
   image: string;
   title: string;
   category: string;
@@ -12,6 +13,7 @@ interface TableRowProps {
 }
 
 export default function TableRow({
+  id,
   image,
   title,
   category,
@@ -68,7 +70,7 @@ export default function TableRow({
       </td>
       <td>
         <Link
-          href="/member/transactions/detail"
+          href={`/member/transactions/${id}`}
           className="btn btn-status rounded-pill text-sm"
         >
           Details
