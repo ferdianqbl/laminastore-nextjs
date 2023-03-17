@@ -25,11 +25,11 @@ export async function getMemberTransactions(requestParams?: string) {
   });
 }
 
-export async function getDetailTransaction(id: string) {
+export async function getDetailTransaction(id: string, serverToken: string) {
   const url = `${ROOT_URL}/${API_VERSION}/players/history/${id}/detail`;
   return await callAPI({
     url,
     method: "GET",
-    token: true,
+    serverToken,
   });
 }

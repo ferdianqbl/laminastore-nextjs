@@ -28,8 +28,13 @@ export function removeTokenFromCookies() {
   Cookies.remove("tkn"); // remove token from cookie
 }
 
-export function getTokenFromCookiesAndDecodeForServer(tokenFromServer: string) {
+export function getTokenFromCookiesServer(tokenFromServer: string) {
   const token = Buffer.from(tokenFromServer, "base64").toString("ascii");
+  return token;
+}
+
+export function getTokenFromCookiesAndDecodeForServer(tokenFromServer: string) {
+  const token = getTokenFromCookiesServer(tokenFromServer);
   const payload: JWTPayloadTypes = jwtDecode(token);
   return payload;
 }
