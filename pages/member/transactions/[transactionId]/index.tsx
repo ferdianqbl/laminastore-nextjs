@@ -5,15 +5,23 @@ import {
 } from "../../../../config/token";
 import Sidebar from "../../../../src/components/organism/Sidebar";
 import TransactionDetailContent from "../../../../src/components/organism/TransactionDetailContent";
-import { UserTypes } from "../../../../services/data-types";
+import {
+  TransactionHistoryTypes,
+  UserTypes,
+} from "../../../../services/data-types";
 import { getDetailTransaction } from "../../../../services/member";
 
-export default function TransactionsDetail({ transactionDetail }: any) {
-  console.log({ transactionDetail });
+interface TransactionDetailProps {
+  transactionDetail: TransactionHistoryTypes;
+}
+
+export default function TransactionsDetail({
+  transactionDetail,
+}: TransactionDetailProps) {
   return (
     <section className="transactions-detail overflow-auto">
       <Sidebar activeMenu="transactions" />
-      <TransactionDetailContent />
+      <TransactionDetailContent data={transactionDetail} />
     </section>
   );
 }

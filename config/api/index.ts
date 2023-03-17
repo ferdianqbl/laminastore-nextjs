@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { getTokenFromCookies } from "../token";
+import { getTokenFromCookies, removeTokenFromCookies } from "../token";
 
 interface CallAPIProps extends AxiosRequestConfig {
   token?: boolean;
@@ -47,6 +47,7 @@ export default async function callAPI({
       message: error.response.data.message,
       data: null,
     };
+    removeTokenFromCookies();
     return result;
   }
 }
