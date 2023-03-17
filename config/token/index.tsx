@@ -5,7 +5,10 @@ import { JWTPayloadTypes } from "../../services/data-types";
 // const decoded = jwtDecode(token); // decode token (example)
 export function saveTokenToCookies(token: string) {
   const tokenBase64 = btoa(token); // encode token to base64. token should be string(btoa and atob only work in client side)
-  Cookies.set("tkn", tokenBase64, { expires: 1 }); // set token to cookie and expires in 1 day
+  // set token to cookie in 1 hour
+  Cookies.set("tkn", tokenBase64, {
+    expires: 1 / 24,
+  });
 }
 
 export function getTokenFromCookies() {
@@ -21,6 +24,8 @@ export function getToken() {
   const token = getTokenFromCookies(); // get token from cookie
   if (!token) return undefined; // if token is undefined, return empty string
   const decoded: JWTPayloadTypes = jwtDecode(token); // decode token
+
+  // check if token is expired for 1 hour
   return decoded;
 }
 
@@ -30,11 +35,13 @@ export function removeTokenFromCookies() {
 
 export function getTokenFromCookiesServer(tokenFromServer: string) {
   const token = Buffer.from(tokenFromServer, "base64").toString("ascii");
+  if (!token) return undefined;
   return token;
 }
 
 export function getTokenFromCookiesAndDecodeForServer(tokenFromServer: string) {
   const token = getTokenFromCookiesServer(tokenFromServer);
+  if (!token) return undefined;
   const payload: JWTPayloadTypes = jwtDecode(token);
   return payload;
 }

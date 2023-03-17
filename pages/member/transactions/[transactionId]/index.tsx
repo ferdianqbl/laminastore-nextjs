@@ -52,6 +52,14 @@ export async function getServerSideProps({
   const token = getTokenFromCookiesServer(tkn);
 
   const payload = getTokenFromCookiesAndDecodeForServer(tkn);
+  if (!payload || !token)
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+
   const user: UserTypes = payload.player;
 
   if (user.avatar)

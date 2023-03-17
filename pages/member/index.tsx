@@ -15,7 +15,9 @@ export default function Member() {
 
 export async function getServerSideProps({ req }: { req: any }) {
   const { tkn } = req.cookies;
-  if (!tkn) {
+  const payload = getTokenFromCookiesAndDecodeForServer(tkn);
+
+  if (!tkn || !payload) {
     toast.error("Please login first", {
       position: "top-center",
       theme: "colored",
@@ -27,7 +29,7 @@ export async function getServerSideProps({ req }: { req: any }) {
       },
     };
   }
-  const payload = getTokenFromCookiesAndDecodeForServer(tkn);
+
   const user: UserTypes = payload.player;
 
   if (user.avatar)
