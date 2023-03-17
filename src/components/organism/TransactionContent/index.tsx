@@ -9,6 +9,7 @@ import { TransactionHistoryTypes } from "../../../../services/data-types";
 export default function TransactionContent() {
   const [total, setTotal] = useState(0);
   const [data, setData] = useState([]);
+  const [tabActive, setTabActive] = useState("all");
   const ROOT_IMG = process.env.NEXT_PUBLIC_ROOT_IMG;
 
   const getAllMemberTransaction = useCallback(async () => {
@@ -27,6 +28,10 @@ export default function TransactionContent() {
   useEffect(() => {
     getAllMemberTransaction();
   }, []);
+
+  const activeTabHandler = (tab: string) => () => {
+    setTabActive(tab);
+  };
 
   return (
     <main className="main-wrapper">
@@ -49,10 +54,26 @@ export default function TransactionContent() {
         <div className="row mt-30 mb-20">
           <div className="col-lg-12 col-12 main-content">
             <div id="list_status_title">
-              <ButtonTab title="All Trx" dataFilter="all" active />
-              <ButtonTab title="Success" dataFilter="success" />
-              <ButtonTab title="Pending" dataFilter="pending" />
-              <ButtonTab title="Failed" dataFilter="failed" />
+              <ButtonTab
+                title="All Trx"
+                active={tabActive === "all"}
+                onClick={activeTabHandler("all")}
+              />
+              <ButtonTab
+                title="Success"
+                active={tabActive === "success"}
+                onClick={activeTabHandler("success")}
+              />
+              <ButtonTab
+                title="Pending"
+                active={tabActive === "pending"}
+                onClick={activeTabHandler("pending")}
+              />
+              <ButtonTab
+                title="Failed"
+                active={tabActive === "failed"}
+                onClick={activeTabHandler("failed")}
+              />
             </div>
           </div>
         </div>
