@@ -24,3 +24,12 @@ export async function getMemberTransactions(requestParams?: string) {
     token: true,
   });
 }
+
+export async function getDetailTransaction(id: string) {
+  const url = `${ROOT_URL}/${API_VERSION}/players/history/${id}/detail`;
+  return await callAPI({
+    url,
+    method: "GET",
+    token: true,
+  });
+}
