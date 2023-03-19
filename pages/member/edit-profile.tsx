@@ -1,8 +1,16 @@
 import Image from "next/image";
 import Input from "../../src/components/atoms/Input";
 import Sidebar from "../../src/components/organism/Sidebar";
+import { toast } from "react-toastify";
+import { getTokenFromCookiesAndDecodeForServer } from "../../config/token";
+import { UserTypes } from "../../services/data-types";
 
-export default function EditProfile() {
+interface EditProfileProps {
+  user: UserTypes;
+}
+
+export default function EditProfile({ user }: EditProfileProps) {
+  console.log(user);
   return (
     <section className="edit-profile overflow-auto">
       <Sidebar activeMenu="settings" />
@@ -84,4 +92,41 @@ export default function EditProfile() {
       </main>
     </section>
   );
+}
+
+export async function getServerSideProps({ req }: { req: any }) {
+  const { tkn } = req.cookies;
+  if (!tkn) {
+    toast.error("Please login first", {
+      position: "top-center",
+      theme: "colored",
+    });
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
+  const res = await getTokenFromCookiesAndDecodeForServer(tkn);
+
+  if (!tkn || !res) {
+    toast.error("Please login first", {
+      position: "top-center",
+      theme: "colored",
+    });
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      user: res.player,
+    },
+  };
 }
