@@ -1,4 +1,5 @@
 import callAPI from "../config/api";
+import { UserTypes } from "./data-types";
 
 const ROOT_URL = process.env.NEXT_PUBLIC_ROOT_URL;
 const API_VERSION = "api/v1";
@@ -31,5 +32,15 @@ export async function getDetailTransaction(id: string, serverToken: string) {
     url,
     method: "GET",
     serverToken,
+  });
+}
+
+export async function putEditProfile(data: UserTypes | FormData) {
+  const url = `${ROOT_URL}/${API_VERSION}/players/profile`;
+  return await callAPI({
+    url,
+    method: "PUT",
+    token: true,
+    data,
   });
 }

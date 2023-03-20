@@ -2,9 +2,15 @@ import Image from "next/image";
 import Input from "../../src/components/atoms/Input";
 import Sidebar from "../../src/components/organism/Sidebar";
 import { toast } from "react-toastify";
-import { getTokenFromCookiesAndDecodeForServer } from "../../config/token";
+import {
+  getTokenFromCookies,
+  getTokenFromCookiesAndDecodeForServer,
+  removeTokenFromCookies,
+} from "../../config/token";
 import { UserTypes } from "../../services/data-types";
 import { useState } from "react";
+import { putEditProfile } from "../../services/member";
+import { useRouter } from "next/router";
 
 interface EditProfileProps {
   user: UserTypes;
@@ -13,15 +19,42 @@ interface EditProfileProps {
 export default function EditProfile({ user }: EditProfileProps) {
   const [userProfile, setUserProfile] = useState<UserTypes>(user);
   const [imgPreview, setImgPreview] = useState("");
-
+  const router = useRouter();
   const imageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const img = e.target.files![0];
     setImgPreview(URL.createObjectURL(img));
   };
 
-  const submitHandler = (e: any) => {
+  const submitHandler = async (e: any) => {
     e.preventDefault();
-    console.log({ userProfile });
+    const token = getTokenFromCookies();
+    if (!token) {
+      toast.error("Please login first", {
+        position: "top-center",
+        theme: "colored",
+      });
+      router.push("/sign-in");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", userProfile.name);
+    formData.append("phoneNumber", userProfile.phoneNumber);
+
+    const result = await putEditProfile(formData);
+    if (result.error) {
+      toast.error(result.message, {
+        position: "top-center",
+        theme: "colored",
+      });
+    } else {
+      toast.success("Profile updated successfully", {
+        position: "top-center",
+        theme: "colored",
+      });
+      removeTokenFromCookies();
+      router.push("/sign-in");
+    }
   };
 
   return (
