@@ -34,6 +34,7 @@ export function removeTokenFromCookies() {
 }
 
 export function getTokenFromCookiesServer(tokenFromServer: string) {
+  if (!tokenFromServer) return undefined;
   const token = Buffer.from(tokenFromServer, "base64").toString("ascii");
   if (!token) return undefined;
   return token;
