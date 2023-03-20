@@ -4,13 +4,14 @@ import Sidebar from "../../src/components/organism/Sidebar";
 import { toast } from "react-toastify";
 import { getTokenFromCookiesAndDecodeForServer } from "../../config/token";
 import { UserTypes } from "../../services/data-types";
+import { useState } from "react";
 
 interface EditProfileProps {
   user: UserTypes;
 }
 
 export default function EditProfile({ user }: EditProfileProps) {
-  console.log(user);
+  const [userProfile, setUserProfile] = useState<UserTypes>(user);
   return (
     <section className="edit-profile overflow-auto">
       <Sidebar activeMenu="settings" />
@@ -59,14 +60,16 @@ export default function EditProfile({ user }: EditProfileProps) {
                   name="name"
                   type="text"
                   placeholder="Enter your name"
+                  value={userProfile.name}
                 />
               </div>
-              <div className="pt-30">
+              {/* <div className="pt-30">
                 <Input
                   label="Email Address"
                   name="email"
                   type="email"
                   placeholder="Enter your email address"
+                  value={userProfile.email}
                 />
               </div>
               <div className="pt-30">
@@ -75,11 +78,12 @@ export default function EditProfile({ user }: EditProfileProps) {
                   name="phone"
                   type="tel"
                   placeholder="Enter your phone number"
+                  value={userProfile.phoneNumber}
                 />
-              </div>
+              </div> */}
               <div className="button-group d-flex flex-column pt-50">
                 <button
-                  type="submit"
+                  type="button"
                   className="btn btn-save fw-medium text-lg text-white rounded-pill"
                   role="button"
                 >
