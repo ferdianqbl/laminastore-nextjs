@@ -12,6 +12,18 @@ interface EditProfileProps {
 
 export default function EditProfile({ user }: EditProfileProps) {
   const [userProfile, setUserProfile] = useState<UserTypes>(user);
+  const [imgPreview, setImgPreview] = useState("");
+
+  const imageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const img = e.target.files![0];
+    setImgPreview(URL.createObjectURL(img));
+  };
+
+  const submitHandler = (e: any) => {
+    e.preventDefault();
+    console.log({ userProfile });
+  };
+
   return (
     <section className="edit-profile overflow-auto">
       <Sidebar activeMenu="settings" />
@@ -19,38 +31,37 @@ export default function EditProfile({ user }: EditProfileProps) {
         <div className="ps-lg-0">
           <h2 className="text-4xl fw-bold color-palette-1 mb-30">Settings</h2>
           <div className="bg-card pt-30 ps-30 pe-30 pb-30">
-            <form action="">
+            <form action="" onSubmit={submitHandler}>
               <div className="photo d-flex">
-                <div className="position-relative me-20">
-                  <img
-                    src="/img/avatar-1.png"
-                    width="90"
-                    height="90"
-                    className="avatar img-fluid"
-                  />
-                  <div className="avatar-overlay position-absolute top-0 d-flex justify-content-center align-items-center">
-                    <Image
-                      src="/icon/ic-trash.svg"
-                      width={24}
-                      height={24}
-                      alt="ic-trash"
-                    />
-                  </div>
-                </div>
                 <div className="image-upload">
                   <label htmlFor="avatar">
-                    <Image
-                      src="/icon/upload.svg"
-                      width={90}
-                      height={90}
-                      alt="icon"
-                    />
+                    {imgPreview.length > 0 || imgPreview ? (
+                      <Image
+                        src={imgPreview}
+                        width={90}
+                        height={90}
+                        alt="icon"
+                        style={{
+                          objectFit: "cover",
+                          borderRadius: "100%",
+                          objectPosition: "center",
+                        }}
+                      />
+                    ) : (
+                      <Image
+                        src="/icon/upload.svg"
+                        width={90}
+                        height={90}
+                        alt="icon"
+                      />
+                    )}
                   </label>
                   <input
                     id="avatar"
                     type="file"
                     name="avatar"
                     accept="image/png, image/jpeg"
+                    onChange={imageHandler}
                   />
                 </div>
               </div>
@@ -61,15 +72,23 @@ export default function EditProfile({ user }: EditProfileProps) {
                   type="text"
                   placeholder="Enter your name"
                   value={userProfile.name}
+                  onChange={(e) => {
+                    setUserProfile({
+                      ...userProfile,
+                      name: e.target.value,
+                    });
+                  }}
                 />
               </div>
-              {/* <div className="pt-30">
+              <div className="pt-30">
                 <Input
                   label="Email Address"
                   name="email"
                   type="email"
                   placeholder="Enter your email address"
                   value={userProfile.email}
+                  disabled
+                  readOnly
                 />
               </div>
               <div className="pt-30">
@@ -79,11 +98,17 @@ export default function EditProfile({ user }: EditProfileProps) {
                   type="tel"
                   placeholder="Enter your phone number"
                   value={userProfile.phoneNumber}
+                  onChange={(e) => {
+                    setUserProfile({
+                      ...userProfile,
+                      phoneNumber: e.target.value,
+                    });
+                  }}
                 />
-              </div> */}
+              </div>
               <div className="button-group d-flex flex-column pt-50">
                 <button
-                  type="button"
+                  type="submit"
                   className="btn btn-save fw-medium text-lg text-white rounded-pill"
                   role="button"
                 >
