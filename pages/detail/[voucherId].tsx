@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { getFeaturedGame, getFeaturedGameDetail } from "../../services/player";
 import Footer from "../../src/components/organism/Footer";
 import Navbar from "../../src/components/organism/Navbar";
@@ -21,6 +21,10 @@ export default function Detail({
   payments: PaymentTypes[];
 }) {
   const ROOT_IMG = process.env.NEXT_PUBLIC_ROOT_IMG;
+
+  useEffect(() => {
+    localStorage.setItem("data-item", JSON.stringify(dataItem));
+  }, []);
 
   return (
     <>
@@ -71,6 +75,8 @@ export async function getStaticPaths() {
       voucherId: item._id,
     },
   }));
+
+  console.log(paths);
 
   return {
     paths,
