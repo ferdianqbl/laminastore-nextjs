@@ -1,5 +1,5 @@
 interface TopUpItemProps {
-  category: "desktop" | "mobile";
+  category: string;
   data: {
     name: string;
     category: {
