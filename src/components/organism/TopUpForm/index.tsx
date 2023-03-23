@@ -63,7 +63,7 @@ export default function TopUpForm({ nominals, payments }: TopUpFormProps) {
 
   return (
     <>
-      <form action="./checkout.html" method="POST">
+      <form action="" method="POST">
         <div className="pt-md-50 pt-30">
           <div className="">
             <label
