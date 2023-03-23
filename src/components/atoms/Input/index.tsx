@@ -1,12 +1,8 @@
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
   type: string;
   placeholder: string;
-  value?: string;
-  disabled?: boolean;
-  readOnly?: boolean;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Input({
